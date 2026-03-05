@@ -1,0 +1,18 @@
+{
+  "name": "TY Studio",
+  "short_name": "TY Studio",
+  "description": "Your premium music video platform - Watch, upload, and share music videos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c14",
+  "theme_color": "#00d4ff",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["entertainment", "music"]
+}
