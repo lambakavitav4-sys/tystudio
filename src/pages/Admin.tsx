@@ -122,7 +122,7 @@ export default function Admin() {
     { id: 'upload' as const, label: 'Upload', icon: Upload },
     { id: 'videos' as const, label: 'Videos', icon: Video },
     { id: 'users' as const, label: 'Users', icon: Users },
-    { id: 'adsense' as const, label: 'AdSense', icon: Code },
+    { id: 'ads' as const, label: 'Ads', icon: Megaphone },
   ];
 
   return (
