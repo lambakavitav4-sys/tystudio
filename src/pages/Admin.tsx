@@ -105,12 +105,15 @@ export default function Admin() {
     fetchVideos();
   };
 
-  const handleSaveAdsense = async () => {
-    await supabase.from('site_settings').upsert(
-      { key: 'adsense_code', value: adsenseCode },
-      { onConflict: 'key' }
-    );
-    toast.success('AdSense code saved!');
+  const handleSaveAds = async () => {
+    const upserts = [
+      { key: 'active_ad_network', value: activeAdNetwork },
+      ...Object.entries(adCodes).map(([key, value]) => ({ key, value })),
+    ];
+    for (const row of upserts) {
+      await supabase.from('site_settings').upsert(row, { onConflict: 'key' });
+    }
+    toast.success('Ad settings saved!');
   };
 
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>;
