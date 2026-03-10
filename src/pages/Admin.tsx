@@ -15,7 +15,13 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState<'upload' | 'users' | 'ads' | 'videos'>('upload');
   const [users, setUsers] = useState<Tables<'profiles'>[]>([]);
   const [videos, setVideos] = useState<Tables<'videos'>[]>([]);
-  const [adsenseCode, setAdsenseCode] = useState('');
+  const [activeAdNetwork, setActiveAdNetwork] = useState('adsense');
+  const [adCodes, setAdCodes] = useState<Record<string, string>>({
+    adsense_code: '',
+    medianet_code: '',
+    propellerads_code: '',
+    custom_ad_code: '',
+  });
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
