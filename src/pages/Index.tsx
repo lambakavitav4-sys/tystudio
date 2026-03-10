@@ -69,7 +69,7 @@ export default function Index() {
         </div>
       </section>
 
-      <AdSenseBanner />
+      <AdBanner />
 
       {/* Videos Grid */}
       <section id="videos" className="py-16 px-4">

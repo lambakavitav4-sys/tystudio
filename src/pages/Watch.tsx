@@ -121,7 +121,7 @@ export default function Watch() {
           </div>
         </div>
 
-        <AdSenseBanner />
+        <AdBanner />
       </div>
     </div>
   );
