@@ -44,9 +44,18 @@ export default function Admin() {
     setVideos(data ?? []);
   };
 
-  const fetchAdsense = async () => {
-    const { data } = await supabase.from('site_settings').select('value').eq('key', 'adsense_code').maybeSingle();
-    setAdsenseCode(data?.value ?? '');
+  const fetchAdSettings = async () => {
+    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'propellerads_code', 'custom_ad_code'];
+    const { data } = await supabase.from('site_settings').select('key, value').in('key', keys);
+    if (data) {
+      const networkRow = data.find(d => d.key === 'active_ad_network');
+      if (networkRow?.value) setActiveAdNetwork(networkRow.value);
+      const codes: Record<string, string> = { ...adCodes };
+      data.filter(d => d.key !== 'active_ad_network').forEach(d => {
+        codes[d.key] = d.value ?? '';
+      });
+      setAdCodes(codes);
+    }
   };
 
   const handleUpload = async (e: React.FormEvent) => {
