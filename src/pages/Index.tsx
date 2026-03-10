@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import VideoCard from '@/components/VideoCard';
-import AdSenseBanner from '@/components/AdSenseBanner';
+import AdBanner from '@/components/AdBanner';
 import { Music, Play, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -69,7 +69,7 @@ export default function Index() {
         </div>
       </section>
 
-      <AdSenseBanner />
+      <AdBanner />
 
       {/* Videos Grid */}
       <section id="videos" className="py-16 px-4">
