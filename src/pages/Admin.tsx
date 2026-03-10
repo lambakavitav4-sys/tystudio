@@ -30,7 +30,7 @@ export default function Admin() {
     if (isAdmin) {
       fetchUsers();
       fetchVideos();
-      fetchAdsense();
+      fetchAdSettings();
     }
   }, [isAdmin]);
 
