@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { ThumbsUp, ThumbsDown, Heart, Eye, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import AdSenseBanner from '@/components/AdSenseBanner';
+import AdBanner from '@/components/AdBanner';
 import type { Tables } from '@/integrations/supabase/types';
 
 export default function Watch() {
