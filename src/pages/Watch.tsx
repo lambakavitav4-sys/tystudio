@@ -6,6 +6,7 @@ import { ThumbsUp, ThumbsDown, Heart, Eye, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import AdBanner from '@/components/AdBanner';
+import CommentsSection from '@/components/CommentsSection';
 import type { Tables } from '@/integrations/supabase/types';
 
 export default function Watch() {
@@ -34,40 +35,44 @@ export default function Watch() {
   };
 
   const recordView = async () => {
-    if (!id || !user) return;
-    await supabase.from('video_views').insert({ video_id: id, user_id: user.id });
+    if (!id) return;
+    await supabase.from('video_views').insert({ video_id: id, user_id: user?.id ?? null });
     await supabase.from('videos').update({ views_count: (video?.views_count ?? 0) + 1 }).eq('id', id);
   };
 
-  useEffect(() => {
-    fetchVideo();
-  }, [id]);
+  useEffect(() => { fetchVideo(); }, [id]);
+  useEffect(() => { fetchUserData(); }, [user, id]);
+  useEffect(() => { if (video) recordView(); }, [video?.id]);
 
-  useEffect(() => {
-    fetchUserData();
-  }, [user, id]);
-
-  useEffect(() => {
-    if (video && user) recordView();
-  }, [video?.id, user?.id]);
+  const getSessionId = () => {
+    let sid = sessionStorage.getItem('anon_session');
+    if (!sid) { sid = crypto.randomUUID(); sessionStorage.setItem('anon_session', sid); }
+    return sid;
+  };
 
   const handleReaction = async (type: 'like' | 'dislike') => {
-    if (!user) { toast.error('Please sign in'); return; }
     if (!id) return;
-    if (userReaction === type) {
-      await supabase.from('video_reactions').delete().eq('video_id', id).eq('user_id', user.id);
+
+    if (user) {
+      if (userReaction === type) {
+        await supabase.from('video_reactions').delete().eq('video_id', id).eq('user_id', user.id);
+      } else {
+        await supabase.from('video_reactions').upsert(
+          { video_id: id, user_id: user.id, reaction_type: type },
+          { onConflict: 'video_id,user_id' }
+        );
+      }
     } else {
-      await supabase.from('video_reactions').upsert(
-        { video_id: id, user_id: user.id, reaction_type: type },
-        { onConflict: 'video_id,user_id' }
-      );
+      // For anonymous users, just insert (no toggle)
+      const sid = getSessionId();
+      await supabase.from('video_reactions').insert({ video_id: id, user_id: sid, reaction_type: type });
     }
     fetchVideo();
     fetchUserData();
   };
 
   const handleFavorite = async () => {
-    if (!user || !id) { toast.error('Please sign in'); return; }
+    if (!user || !id) { toast.error('Please sign in to favorite'); return; }
     if (isFavorited) {
       await supabase.from('favorites').delete().eq('video_id', id).eq('user_id', user.id);
       toast.success('Removed from favorites');
@@ -88,19 +93,12 @@ export default function Watch() {
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
 
-        {/* Video Player */}
         <div className="rounded-2xl overflow-hidden bg-card border border-border glow-primary mb-6">
           <div className="aspect-video">
-            <video
-              src={video.video_url}
-              controls
-              autoPlay
-              className="w-full h-full object-contain bg-background"
-            />
+            <video src={video.video_url} controls autoPlay className="w-full h-full object-contain bg-background" />
           </div>
         </div>
 
-        {/* Info */}
         <div className="glass rounded-2xl p-6">
           <h1 className="font-display text-2xl font-bold text-foreground mb-2">{video.title}</h1>
           {video.description && <p className="text-muted-foreground text-sm mb-4">{video.description}</p>}
@@ -120,6 +118,8 @@ export default function Watch() {
             </Button>
           </div>
         </div>
+
+        <CommentsSection videoId={video.id} />
 
         <AdBanner />
       </div>
