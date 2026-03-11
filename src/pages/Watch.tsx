@@ -102,7 +102,6 @@ export default function Watch() {
 
         <div className="glass rounded-2xl p-6">
           <h1 className="font-display text-2xl font-bold text-foreground mb-2">{video.title}</h1>
-          {video.description && <p className="text-muted-foreground text-sm mb-4">{video.description}</p>}
 
           <div className="flex flex-wrap items-center gap-4">
             <span className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -122,6 +121,13 @@ export default function Watch() {
         </div>
 
         <CommentsSection videoId={video.id} />
+
+        {video.description && (
+          <div className="glass rounded-2xl p-6">
+            <h3 className="font-display text-lg font-semibold text-foreground mb-2">Description</h3>
+            <p className="text-muted-foreground text-sm whitespace-pre-line">{video.description}</p>
+          </div>
+        )}
 
         <AdBanner />
       </div>
