@@ -1,5 +1,5 @@
 {
-  "name": "TY Studio",
+  "name": "TY Music Studio",
   "short_name": "TY Studio",
   "description": "Your premium music video platform - Watch, upload, and share music videos",
   "start_url": "/",
@@ -7,12 +7,39 @@
   "background_color": "#0a0c14",
   "theme_color": "#00d4ff",
   "orientation": "any",
+  "scope": "/",
+  "lang": "en",
   "icons": [
     {
       "src": "/favicon.ico",
       "sizes": "64x64",
       "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "categories": ["entertainment", "music"]
+  "categories": ["entertainment", "music"],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "url": "/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Favorites",
+      "url": "/favorites",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": []
 }
