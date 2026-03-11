@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThumbsUp, ThumbsDown, Heart, Eye, Play } from 'lucide-react';
+import ShareButton from '@/components/ShareButton';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
