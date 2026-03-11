@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { ThumbsUp, ThumbsDown, Heart, Eye, ArrowLeft } from 'lucide-react';
+import ShareButton from '@/components/ShareButton';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import AdBanner from '@/components/AdBanner';
