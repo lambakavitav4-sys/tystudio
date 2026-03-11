@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { ThumbsUp, ThumbsDown, Heart, Eye, ArrowLeft } from 'lucide-react';
+import ShareButton from '@/components/ShareButton';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import AdBanner from '@/components/AdBanner';
@@ -116,6 +117,7 @@ export default function Watch() {
             <Button variant="ghost" size="sm" onClick={handleFavorite} className={isFavorited ? 'text-accent' : 'text-muted-foreground'}>
               <Heart className={`w-4 h-4 mr-1 ${isFavorited ? 'fill-current' : ''}`} /> Favorite
             </Button>
+            <ShareButton videoId={video.id} title={video.title} />
           </div>
         </div>
 
