@@ -117,6 +117,7 @@ export default function Watch() {
             <Button variant="ghost" size="sm" onClick={handleFavorite} className={isFavorited ? 'text-accent' : 'text-muted-foreground'}>
               <Heart className={`w-4 h-4 mr-1 ${isFavorited ? 'fill-current' : ''}`} /> Favorite
             </Button>
+            <ShareButton videoId={video.id} title={video.title} />
           </div>
         </div>
 

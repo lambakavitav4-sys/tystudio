@@ -100,9 +100,12 @@ export default function VideoCard({ video, isFavorited = false, userReaction = n
               <Eye className="w-3.5 h-3.5" /> {formatViews(video.views_count)}
             </span>
           </div>
-          <button onClick={handleFavorite} className={`transition-colors hover:text-accent ${isFavorited ? 'text-accent' : ''}`}>
-            <Heart className={`w-4 h-4 ${isFavorited ? 'fill-current' : ''}`} />
-          </button>
+          <div className="flex items-center gap-2">
+            <ShareButton videoId={video.id} title={video.title} iconOnly />
+            <button onClick={handleFavorite} className={`transition-colors hover:text-accent ${isFavorited ? 'text-accent' : ''}`}>
+              <Heart className={`w-4 h-4 ${isFavorited ? 'fill-current' : ''}`} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
