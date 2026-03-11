@@ -20,15 +20,18 @@ export default function VideoCard({ video, isFavorited = false, userReaction = n
 
   const handleReaction = async (type: 'like' | 'dislike', e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!user) { toast.error('Please sign in to react'); return; }
-
-    if (userReaction === type) {
-      await supabase.from('video_reactions').delete().eq('video_id', video.id).eq('user_id', user.id);
+    if (user) {
+      if (userReaction === type) {
+        await supabase.from('video_reactions').delete().eq('video_id', video.id).eq('user_id', user.id);
+      } else {
+        await supabase.from('video_reactions').upsert(
+          { video_id: video.id, user_id: user.id, reaction_type: type },
+          { onConflict: 'video_id,user_id' }
+        );
+      }
     } else {
-      await supabase.from('video_reactions').upsert(
-        { video_id: video.id, user_id: user.id, reaction_type: type },
-        { onConflict: 'video_id,user_id' }
-      );
+      const sid = sessionStorage.getItem('anon_session') || (() => { const s = crypto.randomUUID(); sessionStorage.setItem('anon_session', s); return s; })();
+      await supabase.from('video_reactions').insert({ video_id: video.id, user_id: sid, reaction_type: type });
     }
     onUpdate?.();
   };
