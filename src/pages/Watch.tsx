@@ -38,12 +38,11 @@ export default function Watch() {
   const recordView = async () => {
     if (!id) return;
     await supabase.from('video_views').insert({ video_id: id, user_id: user?.id ?? null });
-    await supabase.from('videos').update({ views_count: (video?.views_count ?? 0) + 1 }).eq('id', id);
   };
 
   useEffect(() => { fetchVideo(); }, [id]);
   useEffect(() => { fetchUserData(); }, [user, id]);
-  useEffect(() => { if (video) recordView(); }, [video?.id]);
+  useEffect(() => { if (video) { recordView().then(() => fetchVideo()); } }, [video?.id]);
 
   const getSessionId = () => {
     let sid = sessionStorage.getItem('anon_session');
