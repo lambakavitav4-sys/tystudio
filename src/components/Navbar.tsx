@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Music, LogOut, Shield, Heart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import NotificationBell from './NotificationBell';
 
 export default function Navbar() {
   const { user, isAdmin, signOut } = useAuth();
@@ -27,6 +28,7 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-4">
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+          <NotificationBell />
           {user && (
             <Link to="/favorites" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
               <Heart className="w-3.5 h-3.5" /> Favorites

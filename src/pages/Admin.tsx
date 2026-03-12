@@ -84,13 +84,24 @@ export default function Admin() {
         thumbUrl = tUrl.publicUrl;
       }
 
-      await supabase.from('videos').insert({
+      const { data: videoData } = await supabase.from('videos').insert({
         title,
         description,
         video_url: vUrl.publicUrl,
         thumbnail_url: thumbUrl,
         uploaded_by: user.id,
-      });
+      }).select().single();
+
+      // Send notifications (in-app + push)
+      if (videoData) {
+        supabase.functions.invoke('send-push', {
+          body: {
+            title: '🎵 New Video: ' + title,
+            body: description || 'A new music video has been uploaded!',
+            videoId: videoData.id,
+          },
+        });
+      }
 
       toast.success('Video uploaded!');
       setTitle('');
