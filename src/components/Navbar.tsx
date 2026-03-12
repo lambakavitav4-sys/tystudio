@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Music, LogOut, Shield, Heart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import NotificationBell from './NotificationBell';
 
 export default function Navbar() {
   const { user, isAdmin, signOut } = useAuth();
