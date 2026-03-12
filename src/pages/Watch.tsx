@@ -38,7 +38,6 @@ export default function Watch() {
   const recordView = async () => {
     if (!id) return;
     await supabase.from('video_views').insert({ video_id: id, user_id: user?.id ?? null });
-    await supabase.from('videos').update({ views_count: (video?.views_count ?? 0) + 1 }).eq('id', id);
   };
 
   useEffect(() => { fetchVideo(); }, [id]);
