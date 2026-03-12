@@ -42,7 +42,7 @@ export default function Watch() {
 
   useEffect(() => { fetchVideo(); }, [id]);
   useEffect(() => { fetchUserData(); }, [user, id]);
-  useEffect(() => { if (video) recordView(); }, [video?.id]);
+  useEffect(() => { if (video) { recordView().then(() => fetchVideo()); } }, [video?.id]);
 
   const getSessionId = () => {
     let sid = sessionStorage.getItem('anon_session');
