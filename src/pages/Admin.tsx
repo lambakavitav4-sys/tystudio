@@ -19,7 +19,6 @@ export default function Admin() {
   const [adCodes, setAdCodes] = useState<Record<string, string>>({
     adsense_code: '',
     medianet_code: '',
-    propellerads_code: '',
     custom_ad_code: '',
   });
   const [title, setTitle] = useState('');
