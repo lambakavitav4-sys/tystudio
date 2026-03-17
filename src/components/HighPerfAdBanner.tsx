@@ -23,7 +23,8 @@ export default function HighPerfAdBanner() {
   }, []);
 
   return (
-    <div className="w-full py-4 flex justify-center overflow-hidden">
+    <div className="w-full py-4 flex flex-col items-center overflow-hidden">
+      <span className="text-xs text-muted-foreground mb-1">Advertisement</span>
       <div ref={containerRef} />
     </div>
   );

@@ -16,7 +16,8 @@ export default function NativeAdBanner() {
   }, []);
 
   return (
-    <div className="w-full py-4 flex justify-center overflow-hidden">
+    <div className="w-full py-4 flex flex-col items-center overflow-hidden">
+      <span className="text-xs text-muted-foreground mb-1">Advertisement</span>
       <div className="w-full max-w-3xl">
         <div id="container-541224be2902bed12e13af6324a3f2a6" ref={containerRef} />
       </div>
