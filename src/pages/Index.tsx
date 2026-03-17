@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import VideoCard from '@/components/VideoCard';
 import AdBanner from '@/components/AdBanner';
 import NativeAdBanner from '@/components/NativeAdBanner';
+import HighPerfAdBanner from '@/components/HighPerfAdBanner';
 import { Music, Play, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -72,6 +73,7 @@ export default function Index() {
 
       <AdBanner />
       <NativeAdBanner />
+      <HighPerfAdBanner />
 
       {/* Videos Grid */}
       <section id="videos" className="py-16 px-4">

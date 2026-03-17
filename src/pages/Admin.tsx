@@ -19,7 +19,6 @@ export default function Admin() {
   const [adCodes, setAdCodes] = useState<Record<string, string>>({
     adsense_code: '',
     medianet_code: '',
-    propellerads_code: '',
     custom_ad_code: '',
   });
   const [title, setTitle] = useState('');
@@ -51,7 +50,7 @@ export default function Admin() {
   };
 
   const fetchAdSettings = async () => {
-    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'propellerads_code', 'custom_ad_code'];
+    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'custom_ad_code'];
     const { data } = await supabase.from('site_settings').select('key, value').in('key', keys);
     if (data) {
       const networkRow = data.find(d => d.key === 'active_ad_network');
@@ -247,7 +246,6 @@ export default function Admin() {
                 {[
                   { id: 'adsense', label: 'Google AdSense', desc: 'Best for established sites' },
                   { id: 'medianet', label: 'Media.net', desc: 'Yahoo/Bing contextual ads' },
-                  { id: 'propellerads', label: 'PropellerAds', desc: 'Easy approval, multiple formats' },
                   { id: 'custom', label: 'Custom HTML', desc: 'Any ad code snippet' },
                 ].map(net => (
                   <button
@@ -279,13 +277,6 @@ export default function Admin() {
                 <label className="block text-sm font-medium text-foreground">Media.net Code</label>
                 <p className="text-xs text-muted-foreground">Sign up at <a href="https://www.media.net" target="_blank" rel="noopener noreferrer" className="text-primary underline">media.net</a> — contextual ads powered by Yahoo/Bing.</p>
                 <Textarea placeholder="Paste your Media.net ad code here..." value={adCodes.medianet_code} onChange={e => setAdCodes(c => ({ ...c, medianet_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-            {activeAdNetwork === 'propellerads' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">PropellerAds Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://propellerads.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">propellerads.com</a> — easy approval, supports native ads & push notifications.</p>
-                <Textarea placeholder="Paste your PropellerAds code here..." value={adCodes.propellerads_code} onChange={e => setAdCodes(c => ({ ...c, propellerads_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
               </div>
             )}
             {activeAdNetwork === 'custom' && (

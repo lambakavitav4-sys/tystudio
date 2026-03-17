@@ -17,7 +17,6 @@ export default function AdBanner() {
       const keyMap: Record<string, string> = {
         adsense: 'adsense_code',
         medianet: 'medianet_code',
-        propellerads: 'propellerads_code',
         custom: 'custom_ad_code',
       };
 
