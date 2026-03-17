@@ -279,13 +279,6 @@ export default function Admin() {
                 <Textarea placeholder="Paste your Media.net ad code here..." value={adCodes.medianet_code} onChange={e => setAdCodes(c => ({ ...c, medianet_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
               </div>
             )}
-            {activeAdNetwork === 'propellerads' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">PropellerAds Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://propellerads.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">propellerads.com</a> — easy approval, supports native ads & push notifications.</p>
-                <Textarea placeholder="Paste your PropellerAds code here..." value={adCodes.propellerads_code} onChange={e => setAdCodes(c => ({ ...c, propellerads_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
             {activeAdNetwork === 'custom' && (
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-foreground">Custom Ad HTML</label>
