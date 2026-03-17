@@ -71,6 +71,7 @@ export default function Index() {
       </section>
 
       <AdBanner />
+      <NativeAdBanner />
 
       {/* Videos Grid */}
       <section id="videos" className="py-16 px-4">
