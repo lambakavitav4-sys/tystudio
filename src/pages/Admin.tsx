@@ -246,7 +246,6 @@ export default function Admin() {
                 {[
                   { id: 'adsense', label: 'Google AdSense', desc: 'Best for established sites' },
                   { id: 'medianet', label: 'Media.net', desc: 'Yahoo/Bing contextual ads' },
-                  { id: 'propellerads', label: 'PropellerAds', desc: 'Easy approval, multiple formats' },
                   { id: 'custom', label: 'Custom HTML', desc: 'Any ad code snippet' },
                 ].map(net => (
                   <button
