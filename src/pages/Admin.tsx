@@ -50,7 +50,7 @@ export default function Admin() {
   };
 
   const fetchAdSettings = async () => {
-    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'propellerads_code', 'custom_ad_code'];
+    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'custom_ad_code'];
     const { data } = await supabase.from('site_settings').select('key, value').in('key', keys);
     if (data) {
       const networkRow = data.find(d => d.key === 'active_ad_network');
