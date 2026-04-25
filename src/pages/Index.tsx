@@ -72,7 +72,6 @@ export default function Index() {
       </section>
 
       <NativeAdBanner />
-      <HighPerfAdBanner />
       <AdBanner />
 
       {/* Videos Grid */}
