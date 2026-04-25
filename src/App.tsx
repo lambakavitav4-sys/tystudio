@@ -46,6 +46,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
+          <SocialBarAd />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
