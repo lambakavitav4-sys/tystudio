@@ -131,7 +131,6 @@ export default function Watch() {
         )}
 
         <NativeAdBanner />
-        <HighPerfAdBanner />
         <AdBanner />
       </div>
     </div>
