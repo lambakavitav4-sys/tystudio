@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Music, LogOut, Shield, Heart, Menu, X } from 'lucide-react';
+import { Music, LogOut, Heart, Menu, X, Upload } from 'lucide-react';
 import { useState } from 'react';
 import NotificationBell from './NotificationBell';
 
 export default function Navbar() {
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -30,14 +30,14 @@ export default function Navbar() {
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
           <NotificationBell />
           {user && (
-            <Link to="/favorites" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-              <Heart className="w-3.5 h-3.5" /> Favorites
-            </Link>
-          )}
-          {isAdmin && (
-            <Link to="/admin" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-              <Shield className="w-3.5 h-3.5" /> Admin
-            </Link>
+            <>
+              <Link to="/upload" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                <Upload className="w-3.5 h-3.5" /> Upload
+              </Link>
+              <Link to="/favorites" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                <Heart className="w-3.5 h-3.5" /> Favorites
+              </Link>
+            </>
           )}
           {user ? (
             <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-foreground">
@@ -62,14 +62,14 @@ export default function Navbar() {
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
             <Link to="/" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground hover:text-foreground">Home</Link>
             {user && (
-              <Link to="/favorites" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-                <Heart className="w-3.5 h-3.5" /> Favorites
-              </Link>
-            )}
-            {isAdmin && (
-              <Link to="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-                <Shield className="w-3.5 h-3.5" /> Admin
-              </Link>
+              <>
+                <Link to="/upload" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                  <Upload className="w-3.5 h-3.5" /> Upload
+                </Link>
+                <Link to="/favorites" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                  <Heart className="w-3.5 h-3.5" /> Favorites
+                </Link>
+              </>
             )}
             {user ? (
               <button onClick={() => { handleSignOut(); setMobileOpen(false); }} className="text-sm text-muted-foreground hover:text-foreground text-left flex items-center gap-1">

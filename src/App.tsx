@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Watch from "./pages/Watch";
 import Favorites from "./pages/Favorites";
+import Upload from "./pages/Upload";
 import Admin from "./pages/Admin";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -37,6 +38,7 @@ const App = () => {
             <Route path="/auth" element={<Auth />} />
             <Route path="/watch/:id" element={<Watch />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/upload" element={<Upload />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
