@@ -96,9 +96,20 @@ export default function Watch() {
         </Link>
 
         <div className="rounded-2xl overflow-hidden bg-card border border-border glow-primary mb-6">
-          <div className="aspect-video">
-            <video src={video.video_url} controls autoPlay className="w-full h-full object-contain bg-background" />
-          </div>
+          {/\.(mp3|wav|ogg|m4a|aac|flac)(\?|$)/i.test(video.video_url) ? (
+            <div className="relative aspect-video flex items-center justify-center bg-gradient-brand/20">
+              {video.thumbnail_url ? (
+                <img src={video.thumbnail_url} alt={video.title} className="absolute inset-0 w-full h-full object-cover opacity-40" />
+              ) : null}
+              <div className="relative z-10 w-full px-6">
+                <audio src={video.video_url} controls autoPlay className="w-full" />
+              </div>
+            </div>
+          ) : (
+            <div className="aspect-video">
+              <video src={video.video_url} controls autoPlay className="w-full h-full object-contain bg-background" />
+            </div>
+          )}
         </div>
 
         <div className="glass rounded-2xl p-6">
