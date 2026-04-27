@@ -24,13 +24,36 @@ export default function SocialBarAd() {
   }, []);
 
   const wrapperClass = isMobile
-    ? 'fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center bg-background/90 backdrop-blur-sm border-t border-border py-1'
-    : 'fixed left-2 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center bg-background/80 backdrop-blur-sm border border-border rounded-lg p-2';
+    ? 'fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center bg-background/90 backdrop-blur-sm border-t border-border py-0.5'
+    : 'fixed left-2 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center bg-background/80 backdrop-blur-sm border border-border rounded-lg p-1.5';
+
+  // Smaller display size — iframe content scales down via transform
+  const displayWidth = isMobile ? 240 : 200;
+  const displayHeight = isMobile ? 120 : 167;
+  const scaleX = displayWidth / 300;
+  const scaleY = displayHeight / 250;
 
   return (
     <div className={wrapperClass}>
-      <span className="text-[10px] text-muted-foreground mb-1">Advertisement</span>
-      <div ref={containerRef} style={{ width: 300, height: 250, maxWidth: '100%' }} />
+      <span className="text-[9px] text-muted-foreground mb-0.5">Advertisement</span>
+      <div
+        style={{
+          width: displayWidth,
+          height: displayHeight,
+          overflow: 'hidden',
+          maxWidth: '100%',
+        }}
+      >
+        <div
+          ref={containerRef}
+          style={{
+            width: 300,
+            height: 250,
+            transform: `scale(${scaleX}, ${scaleY})`,
+            transformOrigin: 'top left',
+          }}
+        />
+      </div>
     </div>
   );
 }
