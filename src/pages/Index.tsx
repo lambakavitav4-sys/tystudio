@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import VideoCard from '@/components/VideoCard';
-import AdBanner from '@/components/AdBanner';
-import NativeAdBanner from '@/components/NativeAdBanner';
 
 import { Music, Play, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
