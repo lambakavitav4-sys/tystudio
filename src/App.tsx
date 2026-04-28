@@ -34,11 +34,7 @@ const App = () => {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/upload" element={<Upload />} />
             
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/disclaimer" element={<Disclaimer />} />
-            <Route path="/dmca" element={<DMCA />} />
-            <Route path="/contact" element={<Contact />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
