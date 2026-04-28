@@ -29,7 +29,6 @@ export default function Admin() {
     if (isAdmin) {
       fetchUsers();
       fetchVideos();
-      fetchAdSettings();
     }
   }, [isAdmin]);
 
@@ -41,20 +40,6 @@ export default function Admin() {
   const fetchVideos = async () => {
     const { data } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
     setVideos(data ?? []);
-  };
-
-  const fetchAdSettings = async () => {
-    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'custom_ad_code'];
-    const { data } = await supabase.from('site_settings').select('key, value').in('key', keys);
-    if (data) {
-      const networkRow = data.find(d => d.key === 'active_ad_network');
-      if (networkRow?.value) setActiveAdNetwork(networkRow.value);
-      const codes: Record<string, string> = { ...adCodes };
-      data.filter(d => d.key !== 'active_ad_network').forEach(d => {
-        codes[d.key] = d.value ?? '';
-      });
-      setAdCodes(codes);
-    }
   };
 
   const handleUpload = async (e: React.FormEvent) => {
