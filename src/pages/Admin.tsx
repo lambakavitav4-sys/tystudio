@@ -199,66 +199,6 @@ export default function Admin() {
             </div>
           </div>
         )}
-
-        {/* Ads Tab */}
-        {activeTab === 'ads' && (
-          <div className="glass rounded-2xl p-8 max-w-2xl animate-scale-in space-y-6">
-            <h2 className="font-display text-xl font-semibold text-foreground">Ad Network Management</h2>
-            <p className="text-sm text-muted-foreground">Choose your ad network and paste the code. Only the active network's ads will be shown on your site.</p>
-
-            {/* Network Selector */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">Active Ad Network</label>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { id: 'adsense', label: 'Google AdSense', desc: 'Best for established sites' },
-                  { id: 'medianet', label: 'Media.net', desc: 'Yahoo/Bing contextual ads' },
-                  { id: 'custom', label: 'Custom HTML', desc: 'Any ad code snippet' },
-                ].map(net => (
-                  <button
-                    key={net.id}
-                    onClick={() => setActiveAdNetwork(net.id)}
-                    className={`p-3 rounded-xl text-left transition-all border ${
-                      activeAdNetwork === net.id
-                        ? 'border-primary bg-primary/10 text-foreground'
-                        : 'border-border bg-secondary/50 text-muted-foreground hover:border-primary/50'
-                    }`}
-                  >
-                    <p className="font-medium text-sm">{net.label}</p>
-                    <p className="text-xs opacity-70">{net.desc}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Code inputs */}
-            {activeAdNetwork === 'adsense' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Google AdSense Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://adsense.google.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">adsense.google.com</a></p>
-                <Textarea placeholder='<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>...' value={adCodes.adsense_code} onChange={e => setAdCodes(c => ({ ...c, adsense_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-            {activeAdNetwork === 'medianet' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Media.net Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://www.media.net" target="_blank" rel="noopener noreferrer" className="text-primary underline">media.net</a> — contextual ads powered by Yahoo/Bing.</p>
-                <Textarea placeholder="Paste your Media.net ad code here..." value={adCodes.medianet_code} onChange={e => setAdCodes(c => ({ ...c, medianet_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-            {activeAdNetwork === 'custom' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Custom Ad HTML</label>
-                <p className="text-xs text-muted-foreground">Paste any HTML/JS ad code from any network.</p>
-                <Textarea placeholder="<div>Your ad code here...</div>" value={adCodes.custom_ad_code} onChange={e => setAdCodes(c => ({ ...c, custom_ad_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-
-            <Button onClick={handleSaveAds} className="bg-gradient-brand text-primary-foreground hover:opacity-90">
-              Save Ad Settings
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );
