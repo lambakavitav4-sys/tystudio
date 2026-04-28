@@ -13,12 +13,6 @@ import Auth from "./pages/Auth";
 import Watch from "./pages/Watch";
 import Favorites from "./pages/Favorites";
 import Upload from "./pages/Upload";
-
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import Disclaimer from "./pages/Disclaimer";
-import DMCA from "./pages/DMCA";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
