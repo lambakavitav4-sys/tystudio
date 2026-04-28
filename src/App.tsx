@@ -50,6 +50,7 @@ const App = () => {
           </Routes>
           <Footer />
           <SocialBarAd />
+          <FirstVisitAuthModal />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
