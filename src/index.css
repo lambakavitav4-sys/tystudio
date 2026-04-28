@@ -143,10 +143,3 @@
   background: hsl(var(--muted-foreground) / 0.5);
 }
 
-/* Spacing for sticky social bar ad */
-@media (max-width: 767px) {
-  body { padding-bottom: 150px; }
-}
-@media (min-width: 768px) {
-  body { padding-left: 0; }
-}

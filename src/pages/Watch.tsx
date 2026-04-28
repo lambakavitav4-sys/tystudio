@@ -6,8 +6,6 @@ import { ThumbsUp, ThumbsDown, Heart, Eye, ArrowLeft } from 'lucide-react';
 import ShareButton from '@/components/ShareButton';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import AdBanner from '@/components/AdBanner';
-import NativeAdBanner from '@/components/NativeAdBanner';
 
 import CommentsSection from '@/components/CommentsSection';
 import type { Tables } from '@/integrations/supabase/types';
@@ -140,9 +138,6 @@ export default function Watch() {
             <p className="text-muted-foreground text-sm whitespace-pre-line">{video.description}</p>
           </div>
         )}
-
-        <NativeAdBanner />
-        <AdBanner />
       </div>
     </div>
   );

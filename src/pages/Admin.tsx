@@ -5,22 +5,16 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Shield, Upload, Users, Megaphone, Trash2, Video } from 'lucide-react';
+import { Shield, Upload, Users, Trash2, Video } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Tables } from '@/integrations/supabase/types';
 
 export default function Admin() {
   const { user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'upload' | 'users' | 'ads' | 'videos'>('upload');
+  const [activeTab, setActiveTab] = useState<'upload' | 'users' | 'videos'>('upload');
   const [users, setUsers] = useState<Tables<'profiles'>[]>([]);
   const [videos, setVideos] = useState<Tables<'videos'>[]>([]);
-  const [activeAdNetwork, setActiveAdNetwork] = useState('adsense');
-  const [adCodes, setAdCodes] = useState<Record<string, string>>({
-    adsense_code: '',
-    medianet_code: '',
-    custom_ad_code: '',
-  });
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -35,7 +29,6 @@ export default function Admin() {
     if (isAdmin) {
       fetchUsers();
       fetchVideos();
-      fetchAdSettings();
     }
   }, [isAdmin]);
 
@@ -47,20 +40,6 @@ export default function Admin() {
   const fetchVideos = async () => {
     const { data } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
     setVideos(data ?? []);
-  };
-
-  const fetchAdSettings = async () => {
-    const keys = ['active_ad_network', 'adsense_code', 'medianet_code', 'custom_ad_code'];
-    const { data } = await supabase.from('site_settings').select('key, value').in('key', keys);
-    if (data) {
-      const networkRow = data.find(d => d.key === 'active_ad_network');
-      if (networkRow?.value) setActiveAdNetwork(networkRow.value);
-      const codes: Record<string, string> = { ...adCodes };
-      data.filter(d => d.key !== 'active_ad_network').forEach(d => {
-        codes[d.key] = d.value ?? '';
-      });
-      setAdCodes(codes);
-    }
   };
 
   const handleUpload = async (e: React.FormEvent) => {
@@ -121,24 +100,12 @@ export default function Admin() {
     fetchVideos();
   };
 
-  const handleSaveAds = async () => {
-    const upserts = [
-      { key: 'active_ad_network', value: activeAdNetwork },
-      ...Object.entries(adCodes).map(([key, value]) => ({ key, value })),
-    ];
-    for (const row of upserts) {
-      await supabase.from('site_settings').upsert(row, { onConflict: 'key' });
-    }
-    toast.success('Ad settings saved!');
-  };
-
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>;
 
   const tabs = [
     { id: 'upload' as const, label: 'Upload', icon: Upload },
     { id: 'videos' as const, label: 'Videos', icon: Video },
     { id: 'users' as const, label: 'Users', icon: Users },
-    { id: 'ads' as const, label: 'Ads', icon: Megaphone },
   ];
 
   return (
@@ -230,66 +197,6 @@ export default function Admin() {
                 </tbody>
               </table>
             </div>
-          </div>
-        )}
-
-        {/* Ads Tab */}
-        {activeTab === 'ads' && (
-          <div className="glass rounded-2xl p-8 max-w-2xl animate-scale-in space-y-6">
-            <h2 className="font-display text-xl font-semibold text-foreground">Ad Network Management</h2>
-            <p className="text-sm text-muted-foreground">Choose your ad network and paste the code. Only the active network's ads will be shown on your site.</p>
-
-            {/* Network Selector */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">Active Ad Network</label>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { id: 'adsense', label: 'Google AdSense', desc: 'Best for established sites' },
-                  { id: 'medianet', label: 'Media.net', desc: 'Yahoo/Bing contextual ads' },
-                  { id: 'custom', label: 'Custom HTML', desc: 'Any ad code snippet' },
-                ].map(net => (
-                  <button
-                    key={net.id}
-                    onClick={() => setActiveAdNetwork(net.id)}
-                    className={`p-3 rounded-xl text-left transition-all border ${
-                      activeAdNetwork === net.id
-                        ? 'border-primary bg-primary/10 text-foreground'
-                        : 'border-border bg-secondary/50 text-muted-foreground hover:border-primary/50'
-                    }`}
-                  >
-                    <p className="font-medium text-sm">{net.label}</p>
-                    <p className="text-xs opacity-70">{net.desc}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Code inputs */}
-            {activeAdNetwork === 'adsense' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Google AdSense Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://adsense.google.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">adsense.google.com</a></p>
-                <Textarea placeholder='<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>...' value={adCodes.adsense_code} onChange={e => setAdCodes(c => ({ ...c, adsense_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-            {activeAdNetwork === 'medianet' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Media.net Code</label>
-                <p className="text-xs text-muted-foreground">Sign up at <a href="https://www.media.net" target="_blank" rel="noopener noreferrer" className="text-primary underline">media.net</a> — contextual ads powered by Yahoo/Bing.</p>
-                <Textarea placeholder="Paste your Media.net ad code here..." value={adCodes.medianet_code} onChange={e => setAdCodes(c => ({ ...c, medianet_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-            {activeAdNetwork === 'custom' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">Custom Ad HTML</label>
-                <p className="text-xs text-muted-foreground">Paste any HTML/JS ad code from any network.</p>
-                <Textarea placeholder="<div>Your ad code here...</div>" value={adCodes.custom_ad_code} onChange={e => setAdCodes(c => ({ ...c, custom_ad_code: e.target.value }))} className="bg-secondary border-border font-mono text-xs" rows={5} />
-              </div>
-            )}
-
-            <Button onClick={handleSaveAds} className="bg-gradient-brand text-primary-foreground hover:opacity-90">
-              Save Ad Settings
-            </Button>
           </div>
         )}
       </div>
