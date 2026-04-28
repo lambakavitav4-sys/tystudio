@@ -13,12 +13,6 @@ import Auth from "./pages/Auth";
 import Watch from "./pages/Watch";
 import Favorites from "./pages/Favorites";
 import Upload from "./pages/Upload";
-
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import Disclaimer from "./pages/Disclaimer";
-import DMCA from "./pages/DMCA";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,11 +34,7 @@ const App = () => {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/upload" element={<Upload />} />
             
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/disclaimer" element={<Disclaimer />} />
-            <Route path="/dmca" element={<DMCA />} />
-            <Route path="/contact" element={<Contact />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
