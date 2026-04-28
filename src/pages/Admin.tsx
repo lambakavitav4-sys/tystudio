@@ -12,15 +12,9 @@ import type { Tables } from '@/integrations/supabase/types';
 export default function Admin() {
   const { user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'upload' | 'users' | 'ads' | 'videos'>('upload');
+  const [activeTab, setActiveTab] = useState<'upload' | 'users' | 'videos'>('upload');
   const [users, setUsers] = useState<Tables<'profiles'>[]>([]);
   const [videos, setVideos] = useState<Tables<'videos'>[]>([]);
-  const [activeAdNetwork, setActiveAdNetwork] = useState('adsense');
-  const [adCodes, setAdCodes] = useState<Record<string, string>>({
-    adsense_code: '',
-    medianet_code: '',
-    custom_ad_code: '',
-  });
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
