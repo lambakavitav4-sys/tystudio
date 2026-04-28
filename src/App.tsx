@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SocialBarAd from "@/components/SocialBarAd";
 import FirstVisitAuthModal from "@/components/FirstVisitAuthModal";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
 import Index from "./pages/Index";
