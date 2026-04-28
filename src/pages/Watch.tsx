@@ -138,9 +138,6 @@ export default function Watch() {
             <p className="text-muted-foreground text-sm whitespace-pre-line">{video.description}</p>
           </div>
         )}
-
-        <NativeAdBanner />
-        <AdBanner />
       </div>
     </div>
   );
